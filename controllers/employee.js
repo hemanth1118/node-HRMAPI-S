@@ -11,18 +11,22 @@ module.exports = {
         .catch(error => res.status(400).send(error))
     },
     update(req, res){
-        const name = req.body.name;
+        const myname = req.body.name;
+        console.log(myname);
         const id = req.params.id;
+        const companyId = req.body.companyId
+       
        
             return employee.update({ 
-                name: name
+                name: myname,
+                companyId: companyId
              }, {
         where: {
           id: id
         }
       }).then(employee => {
-        res.json({name : name ,id : id});
-        console.log(id);
+        res.json({id : id, name: myname,companyId: companyId});
+        console.log(name);
         
       })
       .catch(error => res.status(400).send(error))
@@ -37,5 +41,17 @@ module.exports = {
             res.json({id:id, message:"Deleted employee with id"+id});
         })
         .catch(error => res.status(400).send(error));
-    }
+    },
+    getEmployee(req, res) {
+        return employee.findAll()
+          .then(employee => {
+          res.send(employee);
+          console.log("All companies:", JSON.stringify(employee));
+          
+        })
+        .catch(error => {
+          res.status(400).send(error);
+        });
+      },
+
 };

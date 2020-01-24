@@ -1,6 +1,8 @@
 const express = require('express');
 const logger = require('morgan');
+const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
+const bcrypt = require('bcrypt');
 const http = require('http');
 
 
@@ -18,9 +20,7 @@ models.sequelize.sync().then(function(){
     console.log("somwthing went wrong with the database update!");
 });
 require('./routes')(app);
-app.get('*',(req,res) => res.status(200).send({
-    message: 'welcome to the beginning of nothingness.',
-}));
+
 
 // app.get('*', (req, res) => res.status(200).send({
 //     message: 'Welcome to the beginning of nothingness.',
